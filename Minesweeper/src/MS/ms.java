@@ -25,7 +25,7 @@ public class ms extends JFrame {
     public JLabel blank = new JLabel(" ");
     public ActionListener a2;
     public boolean start = true;
-    public boolean lose = false;//Í¬Ê±±íÊ¾Ê¤ÀûºÍ½áÊø
+    public boolean lose = false;//Í¬Ê±ï¿½ï¿½Ê¾Ê¤ï¿½ï¿½ï¿½Í½ï¿½ï¿½ï¿½
     public static final Font f3 = new Font("Serif", Font.BOLD, 15);
     public MH mh;
     public JMenuBar mb;
@@ -35,7 +35,7 @@ public class ms extends JFrame {
     public String[][] besttimes;
     public Properties setting;
     public File SF;
-    public BestT scoreD;
+    public BestTime scoreD;
 
     public ms() {
         dimensions = new int[3];
@@ -118,10 +118,10 @@ public class ms extends JFrame {
         begin.setMargin(new Insets(0, 0, 0, 0));
 
 
-        JMenu GAME = new JMenu("Game");//²Ëµ¥À¸&²Ëµ¥
+        JMenu GAME = new JMenu("Game");//ï¿½Ëµï¿½ï¿½ï¿½&ï¿½Ëµï¿½
         mb.add(GAME);
 
-        JMenuItem NG = new JMenuItem("New Game");//ÐÂÓÎÏ·
+        JMenuItem NG = new JMenuItem("New Game");//ï¿½ï¿½ï¿½ï¿½Ï·
         NG.addActionListener(a1);
         GAME.add(NG);
         NG.setAccelerator(KeyStroke.getKeyStroke("F2"));
@@ -197,7 +197,7 @@ public class ms extends JFrame {
         JMenuItem BT = new JMenuItem("Best Times");
         GAME.add(BT);
         BT.addActionListener(event -> {
-            scoreD = new BestT(ms.this, besttimes);
+            scoreD = new BestTime(ms.this, besttimes);
             scoreD.setVisible(true);
         });
         GAME.addSeparator();
@@ -216,7 +216,7 @@ public class ms extends JFrame {
 
         mh = new MH();
 
-        if (dimensions[0] == 9 && dimensions[1] == 9 && dimensions[2] == 10)//È·¶¨Ä£Ê½
+        if (dimensions[0] == 9 && dimensions[1] == 9 && dimensions[2] == 10)//È·ï¿½ï¿½Ä£Ê½
         {
             mode = 0;
             Beginner.setSelected(true);
@@ -334,7 +334,7 @@ public class ms extends JFrame {
         this.setSize(chang, kuan);
         first_click = false;
 
-        //¿ªÆô
+        //ï¿½ï¿½ï¿½ï¿½
         if (start) {
 
             game = new JPanel();
@@ -369,7 +369,7 @@ public class ms extends JFrame {
         if (mines[a][b].getflag() == 1)
             return;
         if (!first_click) {
-            //°²·ÅµØÀ×
+            //ï¿½ï¿½ï¿½Åµï¿½ï¿½ï¿½
             int gen;
             int temper;
             int[] temp = new int[m_num];
@@ -394,7 +394,7 @@ public class ms extends JFrame {
             for (int unit : temp) {
                 mines[(int) unit / height][unit % height].setnum(-1);
             }
-            //Éú³ÉÊý×Ö
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             for (int x = 0; x < length; x++)
                 for (int y = 0; y < height; y++) {
                     int self = count(x, y);
@@ -414,13 +414,13 @@ public class ms extends JFrame {
         if (!lose) {
             mines[a][b].setEnabled(false);
 
-            if (mines[a][b].getnum() != -1)//Õý³£
+            if (mines[a][b].getnum() != -1)//ï¿½ï¿½ï¿½ï¿½
             {
                 int self = mines[a][b].getnum();
                 mines[a][b].clicked();
                 if (self != 0) {
                     mines[a][b].setText("" + self);
-                } else//¿Õ¸ñ
+                } else//ï¿½Õ¸ï¿½
                 {
                     blow_up(a, b, mines);
                 }
@@ -431,7 +431,7 @@ public class ms extends JFrame {
                     for (int j = 0; j < height; j++)
                         if (mines[i][j].isEnabled())
                             all++;
-                if (all == m_num)//Ê¤Àû
+                if (all == m_num)//Ê¤ï¿½ï¿½
                 {
                     lose = true;
                     begin.setText("^w^");
@@ -446,7 +446,7 @@ public class ms extends JFrame {
                         }
                     }
                 }
-            } else//ÖÐÀ×
+            } else//ï¿½ï¿½ï¿½ï¿½
             {
                 mines[a][b].setText("*");
                 for (int i = 0; i < length; i++)
@@ -479,25 +479,25 @@ public class ms extends JFrame {
 
     public int count(int x, int y) {
         int total = 0;
-        //·½¿é¿¿ÉÏ
+        //ï¿½ï¿½ï¿½é¿¿ï¿½ï¿½
         if (x == 0) {
             if (mines[x + 1][y].getnum() == -1)
                 total++;
-            //×óÉÏ½Ç
+            //ï¿½ï¿½ï¿½Ï½ï¿½
             if (y == 0) {
                 if (mines[x][y + 1].getnum() == -1)
                     total++;
                 if (mines[x + 1][y + 1].getnum() == -1)
                     total++;
             }
-            //ÓÒÉÏ½Ç
+            //ï¿½ï¿½ï¿½Ï½ï¿½
             else if (y == (height - 1)) {
                 if (mines[x][y - 1].getnum() == -1)
                     total++;
                 if (mines[x + 1][y - 1].getnum() == -1)
                     total++;
             }
-            //Ê£ÓàÇé¿ö
+            //Ê£ï¿½ï¿½ï¿½ï¿½ï¿½
             else {
                 if (mines[x][y - 1].getnum() == -1)
                     total++;
@@ -509,25 +509,25 @@ public class ms extends JFrame {
                     total++;
             }
         }
-        //·½¿é¿¿ÏÂ
+        //ï¿½ï¿½ï¿½é¿¿ï¿½ï¿½
         else if (x == (length - 1)) {
             if (mines[x - 1][y].getnum() == -1)
                 total++;
-            //×óÏÂ½Ç
+            //ï¿½ï¿½ï¿½Â½ï¿½
             if (y == 0) {
                 if (mines[x][y + 1].getnum() == -1)
                     total++;
                 if (mines[x - 1][y + 1].getnum() == -1)
                     total++;
             }
-            //ÓÒÏÂ½Ç
+            //ï¿½ï¿½ï¿½Â½ï¿½
             else if (y == (height - 1)) {
                 if (mines[x][y - 1].getnum() == -1)
                     total++;
                 if (mines[x - 1][y - 1].getnum() == -1)
                     total++;
             }
-            //Ê£ÓàÇé¿ö
+            //Ê£ï¿½ï¿½ï¿½ï¿½ï¿½
             else {
                 if (mines[x][y - 1].getnum() == -1)
                     total++;
@@ -538,13 +538,13 @@ public class ms extends JFrame {
                 if (mines[x - 1][y + 1].getnum() == -1)
                     total++;
             }
-            //ÄÚµã
+            //ï¿½Úµï¿½
         } else {
             if (mines[x + 1][y].getnum() == -1)
                 total++;
             if (mines[x - 1][y].getnum() == -1)
                 total++;
-            //¿¿×ó
+            //ï¿½ï¿½ï¿½ï¿½
             if (y == 0) {
                 if (mines[x][y + 1].getnum() == -1)
                     total++;
@@ -553,7 +553,7 @@ public class ms extends JFrame {
                 if (mines[x - 1][y + 1].getnum() == -1)
                     total++;
             }
-            //¿¿ÓÒ
+            //ï¿½ï¿½ï¿½ï¿½
             else if (y == (height - 1)) {
                 if (mines[x][y - 1].getnum() == -1)
                     total++;
@@ -562,7 +562,7 @@ public class ms extends JFrame {
                 if (mines[x - 1][y - 1].getnum() == -1)
                     total++;
             }
-            //Ê£ÓàÇé¿ö
+            //Ê£ï¿½ï¿½ï¿½ï¿½ï¿½
             else {
                 if (mines[x][y - 1].getnum() == -1)
                     total++;
