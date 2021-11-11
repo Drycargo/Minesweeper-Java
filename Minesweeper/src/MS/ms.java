@@ -29,7 +29,7 @@ public class ms extends JFrame {
     public static final Font f3 = new Font("Serif", Font.BOLD, 15);
     public MH mh;
     public JMenuBar mb;
-    public de CustomFile;
+    public CustomizeDesigner CustomFile;
     public timer TIMER;
     public int[] dimensions;
     public String[][] besttimes;
@@ -284,7 +284,7 @@ public class ms extends JFrame {
     private class CA implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             if (CustomFile == null)
-                CustomFile = new de();
+                CustomFile = new CustomizeDesigner();
             CustomFile.seth(length);
             CustomFile.setw(height);
             CustomFile.setm(m_num);
